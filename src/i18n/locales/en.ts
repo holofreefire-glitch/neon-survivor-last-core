@@ -14,6 +14,8 @@ export const en: Record<string, string> = {
   'menu.level': 'Level',
   'menu.best': 'Best: {score} · Wave {wave}',
   'menu.energy_in': '+1 in {time}',
+  'menu.sound_on': 'SOUND: ON',
+  'menu.sound_off': 'SOUND: OFF',
 
   // HUD
   'hud.wave': 'Wave',

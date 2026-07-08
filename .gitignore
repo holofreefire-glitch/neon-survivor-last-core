@@ -137,6 +137,9 @@ dist
 !.yarn/sdks
 !.yarn/versions
 
+# Raw AI-generated art sources (processed versions live in public/assets/images)
+assets_raw/
+
 # Vite files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*

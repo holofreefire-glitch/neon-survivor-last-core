@@ -14,6 +14,8 @@ export const ru: Record<string, string> = {
   'menu.level': 'Уровень',
   'menu.best': 'Рекорд: {score} · Волна {wave}',
   'menu.energy_in': '+1 через {time}',
+  'menu.sound_on': 'ЗВУК: ВКЛ',
+  'menu.sound_off': 'ЗВУК: ВЫКЛ',
 
   // HUD
   'hud.wave': 'Волна',
