@@ -77,7 +77,9 @@ export class BootScene extends Phaser.Scene {
   async create(): Promise<void> {
     // Init platform SDK, then load the save (cloud first).
     await YandexSDK.init()
-    setLang(detectLang(YandexSDK.lang))
+    // ?lang=ru|en query override (useful for store screenshots / QA).
+    const forced = new URLSearchParams(location.search).get('lang')
+    setLang(forced === 'ru' || forced === 'en' ? forced : detectLang(YandexSDK.lang))
     const lbl = this.children.getByName('loading-label') as Phaser.GameObjects.Text | null
     lbl?.setText(t('common.loading'))
     await SaveManager.load()
