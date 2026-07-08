@@ -1,0 +1,25 @@
+{
+  "name": "neon-survivor-last-core",
+  "version": "1.0.0",
+  "description": "Neon Survivor: Last Core - production-ready HTML5 roguelite survival game for Yandex Games. Built with Phaser 3, TypeScript, Vite and the Yandex Games SDK.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holofreefire-glitch/neon-survivor-last-core.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "phaser": "3.90.0"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.3",
+    "typescript": "5.9.3",
+    "vite": "7.3.6"
+  }
+}
