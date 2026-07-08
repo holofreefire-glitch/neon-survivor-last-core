@@ -273,7 +273,7 @@ export class GameScene extends Phaser.Scene {
 
     // Pause button
     const pauseBtn = this.add
-      .text(GAME_WIDTH - 28, 64, '❚❚', {
+      .text(GAME_WIDTH - 28, 64, 'I I', {
         fontFamily: FONT,
         fontSize: '22px',
         fontStyle: 'bold',
@@ -316,7 +316,7 @@ export class GameScene extends Phaser.Scene {
     this.waveText.setText(`${t('hud.wave')} ${this.wave}`)
     const secs = Math.floor(this.elapsedMs / 1000)
     this.timeText.setText(`${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}`)
-    this.killText.setText(`✕ ${this.kills}`)
+    this.killText.setText(`× ${this.kills}`)
   }
 
   /* ------------------------------------------------------------ */
@@ -649,7 +649,10 @@ export class GameScene extends Phaser.Scene {
     this.tweens.pauseAll()
     AudioManager.levelUp()
 
-    const overlay = this.add.container(0, 0).setScrollFactor(0).setDepth(200)
+    // NOTE: interactive children inside a scrollFactor(0) container get
+    // misaligned hit areas once the camera scrolls, so we anchor the overlay
+    // at the camera's world position instead (the game is paused meanwhile).
+    const overlay = this.makeOverlayRoot(200)
     overlay.add(makeDim(this))
     overlay.add(makeTitle(this, GAME_WIDTH / 2, 140, t('levelup.title'), 44, CSS.gold))
     overlay.add(makeText(this, GAME_WIDTH / 2, 190, t('levelup.pick'), 20, CSS.dim))
@@ -770,6 +773,13 @@ export class GameScene extends Phaser.Scene {
     this.orbitals.push(blade)
   }
 
+  /** Overlay container anchored to the camera's current world view so
+   *  interactive children keep correct hit areas (see openLevelUp note). */
+  private makeOverlayRoot(depth: number): Phaser.GameObjects.Container {
+    const cam = this.cameras.main
+    return this.add.container(cam.worldView.x, cam.worldView.y).setDepth(depth)
+  }
+
   /* ------------------------------------------------------------ */
   /* Death / revive / game over                                    */
   /* ------------------------------------------------------------ */
@@ -790,7 +800,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   private showReviveOffer(): void {
-    const overlay = this.add.container(0, 0).setScrollFactor(0).setDepth(300)
+    const overlay = this.makeOverlayRoot(300)
     overlay.add(makeDim(this))
     const panel = makePanel(this, GAME_WIDTH / 2, GAME_HEIGHT / 2, 520, 320, COLORS.danger)
     overlay.add(panel)
@@ -903,7 +913,7 @@ export class GameScene extends Phaser.Scene {
       this.tweens.pauseAll()
       AudioManager.pauseAll(true)
       YandexSDK.gameplayStop()
-      this.pauseOverlay = this.add.container(0, 0).setScrollFactor(0).setDepth(300)
+      this.pauseOverlay = this.makeOverlayRoot(300)
       this.pauseOverlay.add(makeDim(this))
       this.pauseOverlay.add(makeTitle(this, GAME_WIDTH / 2, GAME_HEIGHT / 2 - 110, t('common.paused'), 42))
       this.pauseOverlay.add(

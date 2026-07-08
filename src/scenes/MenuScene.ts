@@ -98,10 +98,17 @@ export class MenuScene extends Phaser.Scene {
       makeButton(this, x, h - 74, b.label, b.fn, { width: bw, height: 60, fontSize: 19, color: b.color })
     })
 
-    // Sound toggle
+    // Sound toggle (text-based; emoji glyphs are not reliable cross-platform)
+    const soundLabel = () =>
+      (SaveManager.data.soundOn ? t('menu.sound_on') : t('menu.sound_off'))
     const sound = this.add
-      .text(w - 44, 40, SaveManager.data.soundOn ? '🔊' : '🔇', { fontSize: '30px' })
-      .setOrigin(0.5)
+      .text(w - 44, 40, soundLabel(), {
+        fontFamily: FONT,
+        fontSize: '17px',
+        fontStyle: 'bold',
+        color: SaveManager.data.soundOn ? CSS.cyan : CSS.dim,
+      })
+      .setOrigin(1, 0.5)
       .setInteractive({ useHandCursor: true })
     sound.on('pointerup', () => {
       const on = !(SaveManager.data.soundOn || SaveManager.data.musicOn)
@@ -109,7 +116,8 @@ export class MenuScene extends Phaser.Scene {
       SaveManager.data.musicOn = on
       SaveManager.markDirty()
       AudioManager.applySettings()
-      sound.setText(on ? '🔊' : '🔇')
+      sound.setText(soundLabel())
+      sound.setColor(on ? CSS.cyan : CSS.dim)
     })
 
     // WebAudio requires a user gesture before it can start.
