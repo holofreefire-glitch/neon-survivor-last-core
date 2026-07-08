@@ -130,7 +130,11 @@ class YandexSDKWrapper {
       return
     }
     try {
-      this.ysdk = await window.YaGames.init()
+      // Outside the Yandex Games iframe init() may hang forever - cap it.
+      this.ysdk = await Promise.race([
+        window.YaGames.init(),
+        new Promise<never>((_, reject) => setTimeout(() => reject(new Error('YaGames.init timeout')), 5000)),
+      ])
       try {
         this.player = await this.ysdk.getPlayer({ scopes: false })
       } catch {

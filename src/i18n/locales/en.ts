@@ -1,14 +1,19 @@
 export const en: Record<string, string> = {
+  // Game
+  'game.title': 'NEON SURVIVOR',
+  'game.subtitle': 'Last Core',
+
   // Menu
   'menu.play': 'PLAY',
-  'menu.upgrade': 'Upgrades',
+  'menu.upgrades': 'Upgrades',
   'menu.shop': 'Shop',
   'menu.leaderboard': 'Leaderboard',
   'menu.daily': 'Daily Reward',
   'menu.missions': 'Missions',
   'menu.settings': 'Settings',
   'menu.level': 'Level',
-  'menu.best': 'Best',
+  'menu.best': 'Best: {score} · Wave {wave}',
+  'menu.energy_in': '+1 in {time}',
 
   // HUD
   'hud.wave': 'Wave',

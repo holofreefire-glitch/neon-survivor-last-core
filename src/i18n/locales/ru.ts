@@ -1,14 +1,19 @@
 export const ru: Record<string, string> = {
+  // Game
+  'game.title': 'НЕОН: ВЫЖИВШИЙ',
+  'game.subtitle': 'Последнее Ядро',
+
   // Menu
   'menu.play': 'ИГРАТЬ',
-  'menu.upgrade': 'Улучшения',
+  'menu.upgrades': 'Улучшения',
   'menu.shop': 'Магазин',
   'menu.leaderboard': 'Рейтинг',
   'menu.daily': 'Ежедневная награда',
   'menu.missions': 'Задания',
   'menu.settings': 'Настройки',
   'menu.level': 'Уровень',
-  'menu.best': 'Рекорд',
+  'menu.best': 'Рекорд: {score} · Волна {wave}',
+  'menu.energy_in': '+1 через {time}',
 
   // HUD
   'hud.wave': 'Волна',
